@@ -354,6 +354,7 @@ async def show_custom_tasks(query=None, edit=False):
 
 # ─── Callback Handler ─────────────────────────────────────
 async def handle_callback(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    global custom_tasks
     query  = update.callback_query
     await query.answer()
     parts  = query.data.split("|",2)
@@ -425,7 +426,6 @@ async def handle_callback(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
     # ── مهام مخصصة: حذف/إيقاف ──
     if action=="deltask":
-        global custom_tasks
         t_del = next((t for t in custom_tasks if t["id"]==task),None)
         if t_del:
             custom_tasks = [t for t in custom_tasks if t["id"]!=task]
